@@ -23,9 +23,17 @@ const onboarderSchema = new mongoose.Schema({
         type: String,
         required: [true, 'A onboarder must have a tittle'],
     },
+    team_name: {
+        type: String,
+        required: [true, 'A onboarder must have a team']
+    },
+    company: {
+        type: String,
+        required: [true, 'A onboarder must have a company']
+    },
     onboarding_program_status: {
         type: String,
-        enum: ['No onboarding program', 'Not start yet', 'Doing', 'Complete', 'Withdraw'],
+        enum: ['No program', 'Not start', 'Doing', 'Complete', 'Withdraw'],
         required: [true, 'A onboarder must have a onboarding program status'],
         default: 'No onboarding program'
     },
@@ -57,8 +65,8 @@ const onboarderSchema = new mongoose.Schema({
             source: String,
             progress: {
                 type: String,
-                enum: ['Not start yet', 'Doing', 'Complete', 'Withdraw'],
-                default: 'Not start yet'
+                enum: ['Not start', 'Doing', 'Complete', 'Withdraw'],
+                default: 'Not start'
             }
         }],
     },
@@ -86,8 +94,8 @@ const onboarderSchema = new mongoose.Schema({
             source: String,
             progress: {
                 type: String,
-                enum: ['Not start yet', 'Doing', 'Complete', 'Withdraw'],
-                default: 'Not start yet'
+                enum: ['Not start', 'Doing', 'Complete', 'Withdraw'],
+                default: 'Not start'
             }
         }],
     },
@@ -115,8 +123,8 @@ const onboarderSchema = new mongoose.Schema({
             source: String,
             progress: {
                 type: String,
-                enum: ['Not start yet', 'Doing', 'Complete', 'Withdraw'],
-                default: 'Not start yet'
+                enum: ['Not start', 'Doing', 'Complete', 'Withdraw'],
+                default: 'Not start'
             }
         }],
     },
@@ -144,8 +152,8 @@ const onboarderSchema = new mongoose.Schema({
             source: String,
             progress: {
                 type: String,
-                enum: ['Not start yet', 'Doing', 'Complete', 'Withdraw'],
-                default: 'Not start yet'
+                enum: ['Not start', 'Doing', 'Complete', 'Withdraw'],
+                default: 'Not start'
             }
         }],
     }
