@@ -3,6 +3,7 @@ import './OnboarderProfile.css';
 import 'antd/dist/antd.css';
 import React, {Component,Fragment} from 'react';
 
+
 const data = [
     '1. Company:.',
     '2. Team: .',
