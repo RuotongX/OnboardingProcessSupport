@@ -3,6 +3,7 @@ import {BrowserRouter, Route} from 'react-router-dom'
 import Obp from "./Temp/OnboarderProfile";
 import Home from "./Temp/Home";
 
+
 class PageRouter extends  Component{
 
     render(){
@@ -15,6 +16,10 @@ class PageRouter extends  Component{
             </div>
         )
     }
+
 }
 
 export default PageRouter;
+
+}
+
