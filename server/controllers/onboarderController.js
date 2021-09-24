@@ -3,7 +3,7 @@ const Onboarder = require('../models/onboarderModel');
 // get the onboarder list
 exports.getAllOnboarders = async (req, res) => {
     try {
-        const onboarders = await Onboarder.find().select('-__v');
+        const onboarders = await Onboarder.find().select(['firstname', 'lastname', 'company', 'team_name', 'onboarding_program_status']);
 
         res.status(200).json({
             status: 'success',
