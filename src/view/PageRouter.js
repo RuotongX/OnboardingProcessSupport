@@ -21,5 +21,4 @@ class PageRouter extends  Component{
 
 export default PageRouter;
 
-}
 
