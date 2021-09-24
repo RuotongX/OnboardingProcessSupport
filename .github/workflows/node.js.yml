@@ -26,5 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: npm install react-infinite-scroller
+    - run: npm install reqwest
     - run: npm ci
     - run: npm run build --if-present
