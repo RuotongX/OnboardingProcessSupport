@@ -20,6 +20,25 @@ exports.getAllOnboarders = async (req, res) => {
     }
 };
 
+// get a specific onboarder
+exports.getOnboarder = async (req, res) => {
+    try {
+        const onboarder = await Onboarder.findById(req.params.id).select('-__v');
+        res.status(200).json({
+            status: 'success',
+            data: {
+                onboarder
+            }
+        });
+
+    } catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+}
+
 //create new suggest goals and corresponding activities
 exports.createNewOnboarder = async (req, res) => {
     try {

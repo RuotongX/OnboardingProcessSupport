@@ -10,6 +10,7 @@ router
 
 router
     .route('/:id')
+    .get(teamController.getTeam)
     .patch(teamController.updateTeam)
     .delete(teamController.deleteTeam);
 

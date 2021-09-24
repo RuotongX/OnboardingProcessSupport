@@ -20,6 +20,25 @@ exports.getAllTeams = async (req, res) => {
     }
 };
 
+// get a specific team
+exports.getTeam = async (req, res) => {
+    try {
+        const team = await Team.findById(req.params.id).select('-__v');
+        res.status(200).json({
+            status: 'success',
+            data: {
+                team
+            }
+        });
+
+    } catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+}
+
 //create new suggest goals and corresponding activities
 exports.createTeam = async (req, res) => {
     try {

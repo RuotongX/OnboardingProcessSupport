@@ -10,6 +10,7 @@ router
 
 router
     .route('/:id')
+    .get(suggestCountroler.getSuggest)
     .patch(suggestCountroler.updateSuggest)
     .delete(suggestCountroler.deleteSuggest);
 

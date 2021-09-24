@@ -11,6 +11,7 @@ router
 
 router
     .route('/:id')
+    .get(onboarderController.getOnboarder)
     .patch(onboarderController.updateOnboarder)
     .delete(onboarderController.deleteOnboarder);
 

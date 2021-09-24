@@ -3,13 +3,13 @@ const Suggest = require('../models/suggestModel');
 // get the suggest table: all the suggest goals and corresponding activities
 exports.getSuggestTable = async (req, res) => {
     try {
-        const suggest = await Suggest.find().select('-__v');
+        const suggests = await Suggest.find().select('-__v');
 
         res.status(200).json({
             status: 'success',
-            results: suggest.length,
+            results: suggests.length,
             data: {
-                suggest
+                suggests
             }
         });
     } catch (err) {
@@ -19,6 +19,26 @@ exports.getSuggestTable = async (req, res) => {
         });
     }
 };
+
+// get a specific suggest goals and corresponding activities
+exports.getSuggest = async (req, res) => {
+    try {
+        const suggest = await Suggest.findById(req.params.id).select('-__v');
+        res.status(200).json({
+            status: 'success',
+            data: {
+                suggest
+            }
+        });
+
+    } catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+}
+
 
 //create new suggest goals and corresponding activities
 exports.createNewSuggestGoal = async (req, res) => {
