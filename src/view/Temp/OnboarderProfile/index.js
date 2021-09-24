@@ -27,7 +27,7 @@ class OnboarderProfile extends Component{
                     // subTitle="This is a subtitle"
                 />
                 <div className="center" >
-                    <img className="avat" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                    <img className="avat" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="description"/>
                 </div>
                 <List
                     size="large"
