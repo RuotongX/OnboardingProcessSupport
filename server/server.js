@@ -1,19 +1,22 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
-require("dotenv").config({ path: "./config.env" });
-const port = process.env.PORT || 5000;
-app.use(cors());
-app.use(express.json());
-app.use(require("./routes/record"));
-// get driver connection
-const dbo = require("./db/conn");
+const mongoose = require('mongoose');
+const app = require('./app');
 
-app.listen(port, () => {
-    // perform a database connection when server starts
-    dbo.connectToServer(function (err) {
-        if (err) console.error(err);
+const DB = `mongodb+srv://John:81IuySY5kNFaGt6h@cluster0.nq2g9.mongodb.net/sdm?retryWrites=true&w=majority`
 
+//connect to MongoDB
+mongoose
+    .connect(DB, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+    })
+    .then(con => {
+        console.log(con.connection);
+        console.log('Database connected at ' + Date.now() + " " + new Date().toLocaleDateString() + " " +
+            new Date(new Date("9/23/2021").getTime() + 7 * 24 * 60 * 60 * 1000));
     });
-    console.log(`Server is running on port: ${port}`);
+
+//create the listener
+app.listen(3000, () => {
+    console.log(`App running on port ${process.env.PORT} `);
 });
