@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import React, {Component,Fragment} from 'react';
 import reqwest from 'reqwest';
 import InfiniteScroll from 'react-infinite-scroller';
-import {Link} from 'react-router-dom'
+
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=15&inc=name,gender,email,nat&noinfo';
 
@@ -80,7 +80,7 @@ class Home extends Component {
                         <List
                             dataSource={this.state.data}
                             renderItem={item => (
-                                <List.Item key={item.id} onClick={()=> this.props.history.push("./HomePage")}>
+                                <List.Item key={item.id} onClick={()=> this.props.history.push("./Profile")}>
                                     <List.Item.Meta
                                             avatar={
                                                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
