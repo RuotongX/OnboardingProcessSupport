@@ -1,4 +1,4 @@
-import { PageHeader,List, Button } from 'antd';
+import {PageHeader, List, Button, Space, Spin} from 'antd';
 import './OnboarderProfile.css';
 import 'antd/dist/antd.css';
 import React, {Component,Fragment} from 'react';
@@ -7,32 +7,35 @@ import reqwest from 'reqwest';
 
 
 class OnboarderProfile extends Component{
-
-    state = {
-        url: 'http://127.0.0.1:3000/onboarder',
-        data:[],
-        data1: [],
-        loading: false,
-        hasMore: true,
-    };
-
-    componentWillMount() {
+    constructor(props) {
+        super(props);
         const obrid = this.props.location.state;
-        this.setState({
-            url:'http://127.0.0.1:3000/onboarder/'+obrid
-        })
+        this.state = {
+            url: 'http://127.0.0.1:3000/onboarder',
+            data:[],
+            data1: [],
+            loading: true,
+            hasMore: true,
+        }
+        this.state.url='http://127.0.0.1:3000/onboarder/'+obrid;
+
+
     }
+
     componentDidMount() {
         this.fetchData(res => {
             this.setState({
                 data1: res.data.onboarder,
+                loading: false,
             });
         });
 
     }
+    componentDidUpdate(nextProps, nextState, nextContext) {
+        this.refreshData();
+    }
 
     fetchData = callback => {
-
         reqwest({
             url: this.state.url,
             type: 'json',
@@ -43,40 +46,30 @@ class OnboarderProfile extends Component{
             },
         });
     };
+    refreshData =() =>{
+        // console.log(this.state.data1);
+        try{
+            this.setState( {
+                data: [
+                    '1. Name: '+this.state.data1.lastname+' '+this.state.data1.firstname,
+                    '2. Company: '+this.state.data1.company,
+                    '3. Team: '+this.state.data1.team_name,
+                    '4. Skill: '+this.state.data1.skill_matrix[0].tech+' | '+this.state.data1.skill_matrix[1].tech,
+                    '5. Goal: '+this.state.data1.goal_list[0]+' | '+this.state.data1.goal_list[1],
+                    '6. First Day Activities: '+this.state.data1.onboarding_date_activity[0].activity+' | '+this.state.data1.onboarding_date_activity[1].activity,
+                    '7. Iteration 1 Activities: '+this.state.data1.iteration1_activity[0].activity+' | '+this.state.data1.iteration1_activity[1].activity,
+                    '8. Iteration 2 Activities: '+this.state.data1.iteration2_activity[0].activity+' | '+this.state.data1.iteration2_activity[1].activity,
+                    '9. Iteration 3 Activities: '+this.state.data1.iteration3_activity[0].activity+' | '+this.state.data1.iteration3_activity[1].activity,
+                ],
+
+            })
+        } catch(e){
+            // console.log(e);
+        }
+    }
 
     render() {
-        // const xixi = ['11','22'];
-        // console.log(xixi[0]);
-        // const temp = this.state.data1.skill_matrix;
-        let temp =`{[
-                {
-                    "_id": "614dd2e496863b31a4ec3c5c",
-                    "tech": "ass",
-                    "level": 5
-                },
-                {
-                    "_id": "614dd2e496863b31a4ec3c5d",
-                    "tech": "shuaijiao",
-                    "level": 1
-                }
-            ]}`
-        console.log(JSON.parse(JSON.stringify(String(temp))));
 
-        // temp.map((item,i) => {
-        //     console.log(item)
-        // })
-
-        this.state.data =[
-            '1. Name: '+this.state.data1.lastname+' '+this.state.data1.firstname,
-            '2. Company: '+this.state.data1.company,
-            '3. Team: '+this.state.data1.team_name,
-            // '4. Skill: '+this.state.data1.skill_matrix[0].tech+' | '+this.state.data1.skill_matrix[1].tech,
-            // '5. Goal: '+this.state.data1.goal_list[0]+' | '+this.state.data1.goal_list[1],
-            // '6. First Day Activities: '+this.onboarding_date_activity[0].activity+' | '+this.onboarding_date_activity[1].activity,
-            // '7. Iteration 1 Activities: '+this.iteration1_activity[0].activity+' | '+this.iteration1_activity[1].activity,
-            // '8. Iteration 2 Activities: '+this.iteration2_activity[0].activity+' | '+this.iteration2_activity[1].activity,
-            // '9. Iteration 3 Activities: '+this.iteration3_activity[0].activity+' | '+this.iteration3_activity[1].activity,
-        ]
         return (
             <Fragment>
                 <PageHeader
@@ -94,15 +87,27 @@ class OnboarderProfile extends Component{
                     // footer={<div>Footer</div>}
                     bordered
                     dataSource={this.state.data}
-                    renderItem={item => <List.Item>{item}</List.Item>}
-                />
+                    renderItem={item =>
+                        <List.Item>
+
+                            {item}
+                        </List.Item>}
+                >
+                    {this.state.loading  &&  (
+                        <div className="demo-loading-container">
+                            <Spin />
+                        </div>
+                    )}
+                </List>
                 <div className = "Start">
-                    <Button type="primary" size="large" className="gb" shape="round" icon = {<ManOutlined />}>
-                        Modify Goals
-                    </Button>
-                    <Button type="primary" size="large" className="ab" shape="round" icon = {<ManOutlined />}>
-                        Modify Activities
-                    </Button>
+                    <Space size={"middle"} wrap align={'center'}>
+                        <Button type="primary" size="large" className="gb" shape="round" icon = {<ManOutlined />}>
+                            Modify Goals
+                        </Button>
+                        <Button type="primary" size="large" className="ab" shape="round" icon = {<ManOutlined />}>
+                            Modify Activities
+                        </Button>
+                    </Space>
                 </div>
             </Fragment>
         )
