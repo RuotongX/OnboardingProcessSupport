@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Route} from 'react-router-dom'
-import Obp from "./Temp/OnboarderProfile";
-import Home from "./Temp/Home";
+import Obp from "./OnboarderProfile";
+import Home from "./HomePage";
 
 
 class PageRouter extends  Component{
