@@ -2,6 +2,7 @@ import { PageHeader,List, Button } from 'antd';
 import './OnboarderProfile.css';
 import 'antd/dist/antd.css';
 import React, {Component,Fragment} from 'react';
+import { ManOutlined } from '@ant-design/icons';
 import reqwest from 'reqwest';
 
 
@@ -46,8 +47,24 @@ class OnboarderProfile extends Component{
     render() {
         // const xixi = ['11','22'];
         // console.log(xixi[0]);
-        const temp = this.state.data1.skill_matrix;
-        console.log(temp);
+        // const temp = this.state.data1.skill_matrix;
+        let temp =`{[
+                {
+                    "_id": "614dd2e496863b31a4ec3c5c",
+                    "tech": "ass",
+                    "level": 5
+                },
+                {
+                    "_id": "614dd2e496863b31a4ec3c5d",
+                    "tech": "shuaijiao",
+                    "level": 1
+                }
+            ]}`
+        console.log(JSON.parse(JSON.stringify(String(temp))));
+
+        // temp.map((item,i) => {
+        //     console.log(item)
+        // })
 
         this.state.data =[
             '1. Name: '+this.state.data1.lastname+' '+this.state.data1.firstname,
@@ -80,8 +97,11 @@ class OnboarderProfile extends Component{
                     renderItem={item => <List.Item>{item}</List.Item>}
                 />
                 <div className = "Start">
-                    <Button type="primary" size="large">
-                        Modify
+                    <Button type="primary" size="large" className="gb" shape="round" icon = {<ManOutlined />}>
+                        Modify Goals
+                    </Button>
+                    <Button type="primary" size="large" className="ab" shape="round" icon = {<ManOutlined />}>
+                        Modify Activities
                     </Button>
                 </div>
             </Fragment>

@@ -16,5 +16,15 @@
 }
 .Start {
     text-align: center;
-    padding: 20px 0px 0px 0px;
+    padding: 10px 0px 0px 0px;
+}
+.gb{
+    width: 180px;
+    height:40px;
+    margin: 10px 0px 0px 0px;
+}
+.ab{
+    width: 180px;
+    height:40px;
+    margin: 10px 0px 0px 0px;
 }
