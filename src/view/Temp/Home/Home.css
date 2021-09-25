@@ -14,18 +14,28 @@
     width: 100%;
     text-align: center;
 }
-.InProgress{
+.Doing{
     color: goldenrod;
     border: 1px solid #DAA520;
     border-radius: 10px;
 }
-.Finished{
+.Complete{
     color: aquamarine;
     border: 1px solid #7FFFD4;
     border-radius: 10px;
 }
-.Pending{
+.Noprogram{
     color: hotpink;
     border: 1px solid #FF69B4;
+    border-radius: 10px;
+}
+.Notstart{
+    color: dodgerblue;
+    border: 1px solid #1E90FF;
+    border-radius: 10px;
+}
+.Withdraw{
+    color: crimson;
+    border: 1px solid #DC143C;
     border-radius: 10px;
 }

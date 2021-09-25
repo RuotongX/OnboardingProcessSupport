@@ -6,7 +6,7 @@ import reqwest from 'reqwest';
 import InfiniteScroll from 'react-infinite-scroller';
 
 
-const fakeDataUrl = 'https://randomuser.me/api/?results=15&inc=name,gender,email,nat&noinfo';
+const dataUrl = 'http://127.0.0.1:3000/onboarder';
 
 
 class Home extends Component {
@@ -16,17 +16,18 @@ class Home extends Component {
         hasMore: true,
     };
 
+
     componentDidMount() {
         this.fetchData(res => {
             this.setState({
-                data: res.results,
+                data: res.data.onboarders,
             });
         });
     }
 
     fetchData = callback => {
         reqwest({
-            url: fakeDataUrl,
+            url: dataUrl,
             type: 'json',
             method: 'get',
             contentType: 'application/json',
@@ -51,6 +52,7 @@ class Home extends Component {
         }
         this.fetchData(res => {
             data = data.concat(res.results);
+            console.log(data);
             this.setState({
                 data,
                 loading: false,
@@ -80,16 +82,16 @@ class Home extends Component {
                         <List
                             dataSource={this.state.data}
                             renderItem={item => (
-                                <List.Item key={item.id} onClick={()=> this.props.history.push("./Profile")}>
+                                <List.Item key={item.id} onClick={()=> this.props.history.push({pathname:"./Profile",state:item._id})}>
                                     <List.Item.Meta
                                             avatar={
                                                 <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                                             }
-                                            title={item.name.last}
+                                            title={String.prototype.concat(item.lastname," ",item.firstname)}
 
-                                            description={String.prototype.concat(item.email," | ", item.name.first)}
+                                            description={String.prototype.concat(item.company," | ", item.team_name)}
                                         />
-                                    <div className = "InProgress">&nbsp;InProgress&nbsp;</div>
+                                    <div className ={String(item.onboarding_program_status).replace(/\s+/g,"")} >&nbsp;{item.onboarding_program_status}&nbsp;</div>
                                 </List.Item>
                             )}
                         >
