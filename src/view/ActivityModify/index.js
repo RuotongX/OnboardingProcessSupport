@@ -7,6 +7,17 @@ import reqwest from 'reqwest';
 
 class ActivityModify extends Component{
 
+    render(){
+        return(
+            <PageHeader
+                className="site-page-header"
+                onBack={() => window.history.back()}
+                title="Activity"
+
+                // subTitle="This is a subtitle"
+            />
+        )
+    }
 }
 
 export default ActivityModify;
