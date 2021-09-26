@@ -2,7 +2,7 @@ import {PageHeader, Card,List, Modal,Button,Input,Divider} from 'antd';
 import './GoalPage.css';
 import 'antd/dist/antd.css';
 import React, {Component,Fragment} from 'react';
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined,CloudUploadOutlined } from '@ant-design/icons';
 import reqwest from 'reqwest';
 
 const {TextArea} = Input;
@@ -148,6 +148,9 @@ class GoalPage extends Component{
                     className="site-page-header"
                     onBack={() => window.history.back()}
                     title="Goal"
+                    extra={
+                        <Button shape="round" icon={<CloudUploadOutlined />} size="large"/>
+                    }
                     // subTitle="This is a subtitle"
                 />
                 <Divider orientation="left">
