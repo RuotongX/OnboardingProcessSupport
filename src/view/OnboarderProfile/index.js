@@ -15,11 +15,8 @@ class OnboarderProfile extends Component{
             data:[],
             data1: [],
             loading: true,
-            hasMore: true,
         }
         this.state.url='http://127.0.0.1:3000/onboarder/'+obrid;
-
-
     }
 
     componentDidMount() {
@@ -89,7 +86,6 @@ class OnboarderProfile extends Component{
                     dataSource={this.state.data}
                     renderItem={item =>
                         <List.Item>
-
                             {item}
                         </List.Item>}
                 >
@@ -101,10 +97,10 @@ class OnboarderProfile extends Component{
                 </List>
                 <div className = "Start">
                     <Space size={"middle"} wrap align={'center'}>
-                        <Button type="primary" size="large" className="gb" shape="round" icon = {<ManOutlined />}>
+                        <Button type="primary" size="large" className="gb" shape="round" icon = {<ManOutlined />} onClick={()=> this.props.history.push({pathname:"./Profile/Goal",state:this.state.data1._id})}>
                             Modify Goals
                         </Button>
-                        <Button type="primary" size="large" className="ab" shape="round" icon = {<ManOutlined />}>
+                        <Button type="primary" size="large" className="ab" shape="round" icon = {<ManOutlined />} onClick={()=> this.props.history.push({pathname:"./Profile/Activity",state:this.state.data1._id})}>
                             Modify Activities
                         </Button>
                     </Space>
