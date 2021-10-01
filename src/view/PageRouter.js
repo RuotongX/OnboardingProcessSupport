@@ -18,8 +18,8 @@ class PageRouter extends  Component{
                     <Route path ='/' exact component = {Home}></Route>
                     <Route path ='/Profile' exact component = {Obp}></Route>
                     <Route path ='/Profile/Goal' exact component = {Goal}></Route>
-                    <Route path ='/Profile/Activity' exact component = {Activity}></Route>
-                    <Route path ='/Profile/Activity/Setting' exact component = {ActivityD}></Route>
+                    <Route path ='/Profile/Activity' exact component = {ActivityD}></Route>
+                    <Route path ='/Profile/Activity/Setting' exact component = {Activity}></Route>
                 </BrowserRouter>
             </div>
         )

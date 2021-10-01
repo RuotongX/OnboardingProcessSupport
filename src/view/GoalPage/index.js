@@ -204,24 +204,24 @@ class GoalPage extends Component{
                         </List>
                     </div>
 
-                <div className="Suggest">
-                    <Divider orientation="left">
-                        Suggest Goals
-                    </Divider>
-                    <div className="site-card-wrapper">
-                        <List
-                            grid={{ gutter: 16, column: 3 }}
-                            dataSource={this.state.suggestList}
-                            renderItem={(item,index) => (
-                                <List.Item >
-                                    <Card className="card_sug"  bordered={false} onClick={event=> this.handleSuggestAdding(index)}>
-                                        {item.goal}
-                                    </Card>
-                                </List.Item>
-                            )}
-                        />
-                    </div>
-                </div>
+                {/*<div className="Suggest">*/}
+                {/*    <Divider orientation="left">*/}
+                {/*        Suggest Goals*/}
+                {/*    </Divider>*/}
+                {/*    <div className="site-card-wrapper">*/}
+                {/*        <List*/}
+                {/*            grid={{ gutter: 16, column: 3 }}*/}
+                {/*            dataSource={this.state.suggestList}*/}
+                {/*            renderItem={(item,index) => (*/}
+                {/*                <List.Item >*/}
+                {/*                    <Card className="card_sug"  bordered={false} onClick={event=> this.handleSuggestAdding(index)}>*/}
+                {/*                        {item.goal}*/}
+                {/*                    </Card>*/}
+                {/*                </List.Item>*/}
+                {/*            )}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </Fragment>
         )
     }
