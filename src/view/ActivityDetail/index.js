@@ -102,6 +102,40 @@ class ActivityDetail extends Component{
                     value,
                 });
             }
+            const activitylist = [];
+            console.log(this.state.data.onboarding_date_activity.length);
+            for(let i = 0; i < this.state.data.onboarding_date_activity.length; i++){
+                activitylist.push({
+                    content: this.state.data.onboarding_date_activity[i].activity,
+                    operatingrange: "Onboarding date",
+                    startdate: this.state.data.onboarding_date,
+                    enddate: this.state.data.onboarding_date,
+                })
+            }
+            for(let i = 0; i < this.state.data.iteration1_activity.length; i++){
+                activitylist.push({
+                    content: this.state.data.iteration1_activity[i].activity,
+                    operatingrange: "Iteration 1",
+                    startdate: this.state.data.iteration1_start_date,
+                    enddate: this.state.data.iteration1_end_date,
+                })
+            }
+            for(let i = 0; i < this.state.data.iteration2_activity.length; i++){
+                activitylist.push({
+                    content: this.state.data.iteration2_activity[i].activity,
+                    operatingrange: "Iteration 2",
+                    startdate: this.state.data.iteration2_start_date,
+                    enddate: this.state.data.iteration2_end_date,
+                })
+            }
+            for(let i = 0; i < this.state.data.iteration3_activity.length; i++){
+                activitylist.push({
+                    content: this.state.data.iteration3_activity[i].activity,
+                    operatingrange: "Iteration 3",
+                    startdate: this.state.data.iteration3_start_date,
+                    enddate: this.state.data.iteration3_end_date,
+                })
+            }
             return (
                 <Fragment>
                     <PageHeader
@@ -129,13 +163,13 @@ class ActivityDetail extends Component{
                     </Divider>
                     <List
                         itemLayout="horizontal"
-                        dataSource={this.state.data.goal_list}
-                        onClick={event=> this.showvalue(goallist)}
+                        dataSource={activitylist}
+                        onClick={event=> this.showvalue(activitylist)}
                         renderItem={item => (
                             <List.Item>
                                 <List.Item.Meta
-                                    title={item}
-                                    description="Iteration1 | 2021.3.15-2021.4.1"
+                                    title={item.content}
+                                    description={item.operatingrange+' | '+item.startdate+' - '+item.enddate}
                                     onClick={event=> this.showModal()}
                                 />
                                 <Modal
@@ -144,7 +178,7 @@ class ActivityDetail extends Component{
                                     onOk={this.handleOk}
                                     onCancel={this.handleCancel}
                                     footer={[
-                                        <Button key="back" onClick={this.handleCancel}>
+                                        <Button key="delete" onClick={this.handleCancel}>
                                             Cancel
                                         </Button>,
                                         <Button key="submit" type="primary" loading={this.state.loading} onClick={this.handleOk}>
@@ -161,7 +195,6 @@ class ActivityDetail extends Component{
                                             <Select value="Iteration3"> Iteration3 </Select>
                                         </Select>
                                     </div>
-
                                     <div className="site-calendar-demo-card">
                                         <Typography.Title level={5}> Start Date</Typography.Title>
                                         <Calendar fullscreen={false} ></Calendar>
@@ -170,7 +203,6 @@ class ActivityDetail extends Component{
                                         <Typography.Title level={5}> End Date</Typography.Title>
                                         <Calendar fullscreen={false} ></Calendar>
                                     </div>
-
                                 </Modal>
                             </List.Item>
                         )}
