@@ -1,5 +1,12 @@
 .site-page-header {
     border: 1px solid rgb(235, 237, 240);
+    background: #e8e8e8;
+}
+.demo-loading-container {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
 }
 .center{
     text-align: center;
@@ -16,5 +23,16 @@
 }
 .Start {
     text-align: center;
-    padding: 20px 0px 0px 0px;
+    margin: auto;
+    padding: 10px 0px 0px 0px;
+}
+.gb{
+    width: 180px;
+    height:40px;
+    margin: 10px 0px 0px 0px;
+}
+.ab{
+    width: 180px;
+    height:40px;
+    margin: 10px 0px 0px 0px;
 }

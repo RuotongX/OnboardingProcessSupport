@@ -3,6 +3,7 @@ const app = require('./app');
 
 const DB = `mongodb+srv://team-5:infsteam5@cluster0.zsrux.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 
+
 //connect to MongoDB
 mongoose
     .connect(DB, {

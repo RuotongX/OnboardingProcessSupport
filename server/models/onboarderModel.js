@@ -1,4 +1,10 @@
-const mongoose = require('mongoose');
+
+const mongoose = require('mongoose');
+
+var skill_matrix = new mongoose.Schema({
+    tech: String,
+    level: Number
+});
 
 const onboarderSchema = new mongoose.Schema({
     lastname: {
@@ -31,22 +37,21 @@ const onboarderSchema = new mongoose.Schema({
         type: String,
         required: [true, 'A onboarder must have a company']
     },
+
     onboarding_program_status: {
         type: String,
         enum: ['No program', 'Not start', 'Doing', 'Complete', 'Withdraw'],
         required: [true, 'A onboarder must have a onboarding program status'],
         default: 'No program'
+
     },
     team_id: {
         type: String,
         required: [true, 'A onboarder must have a team'],
     },
     skill_matrix: {
-        type: [{
-            tech: String,
-            level: Number
-        }],
-        required: [true, 'Onboarder must have a skill matrix'],
+        type: [skill_matrix],
+        required: [true, 'Onboarder must have a skill matrix'],
     },
     goal_list: {
         type: [String],
