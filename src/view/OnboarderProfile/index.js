@@ -11,12 +11,12 @@ class OnboarderProfile extends Component{
         super(props);
         const obrid = this.props.location.state;
         this.state = {
-            url: 'http://127.0.0.1:3000/onboarder',
+            url: 'http://infsteam5.herokuapp.com/onboarder',
             data:[],
             data1: [],
             loading: true,
         }
-        this.state.url='http://127.0.0.1:3000/onboarder/'+obrid;
+        this.state.url='http://infsteam5.herokuapp.com/onboarder/'+obrid;
     }
 
     componentDidMount() {

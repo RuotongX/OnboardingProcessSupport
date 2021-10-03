@@ -12,8 +12,8 @@ class GoalPage extends Component{
         super(props);
         const obrid = this.props.location.state;
         this.state = {
-            url: 'http://127.0.0.1:3000/onboarder',
-            urlSuggest:'http://127.0.0.1:3000/suggest',
+            url: 'http://infsteam5.herokuapp.com/onboarder',
+            urlSuggest:'http://infsteam5.herokuapp.com/suggest',
             data: [],
             suggestList:[],
             loading: false,
@@ -22,7 +22,7 @@ class GoalPage extends Component{
             ginput:'',
             ginx:0,
         }
-        this.state.url = 'http://127.0.0.1:3000/onboarder/' + obrid;
+        this.state.url = 'http://infsteam5.herokuapp.com/onboarder/' + obrid;
     }
     componentDidMount() {
         this.fetchData(res => {
@@ -110,7 +110,7 @@ class GoalPage extends Component{
     };
 
     handleCancel = () => {
-
+        console.log("here1");
         this.setState({
             visible: false,
             ginput:'',
