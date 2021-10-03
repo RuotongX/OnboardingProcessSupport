@@ -1,4 +1,4 @@
-import {PageHeader, List, Modal, Input, Button, Select, Divider,Spin, Calendar, Typography} from 'antd';
+import {PageHeader, List, Modal, Input, Button, Select, Divider,Spin, DatePicker, Space, Typography} from 'antd';
 import './ActivityDetail.css';
 import 'antd/dist/antd.css';
 import React, {Component,Fragment} from 'react';
@@ -7,6 +7,7 @@ import reqwest from 'reqwest';
 
 const {TextArea} = Input;
 const { Option } = Select;
+const {RangePicker} = DatePicker;
 
 class ActivityDetail extends Component{
     constructor(props) {
@@ -191,13 +192,13 @@ class ActivityDetail extends Component{
         // console.log(this.state.activitylist);
 
     }
-    showModal = (index) => {
+    showModal = (item,index) => {
         this.setState({
             visible: true,
-            inputcontent:'',
-            selectrange:'',
-            selectstartdate:'',
-            selectenddate:'',
+            inputcontent:item.content,
+            selectrange:item.operatingrange,
+            selectstartdate:item.startdate,
+            selectenddate:item.enddate,
             activityindex:index,
         });
     };
@@ -232,11 +233,33 @@ class ActivityDetail extends Component{
     handleRange = (value)=>{
         this.setState(()=>({selectrange:value}))
     }
-    handleStartDate = (value) =>{
-        console.log(value)
-    }
-    handleEndDate = (value) =>{
 
+    handleDate = (value) =>{
+
+        this.setState(()=>(
+            {
+                selectstartdate:value[0].format('L'),
+                selectenddate:value[1].format('L'),
+            }))
+
+    }
+    handleOk = () =>{
+        const al = this.state.activitylist;
+        al[this.state.activityindex].content = this.state.inputcontent;
+        al[this.state.activityindex].operatingrange = this.state.selectrange;
+        al[this.state.activityindex].startdate = this.state.selectstartdate;
+        al[this.state.activityindex].enddate = this.state.selectenddate;
+
+        this.setState(()=>(
+            {
+                visible: false,
+                activitylist:al,
+                inputcontent:'',
+                selectrange:'',
+                selectstartdate:'',
+                selectenddate:'',
+                activityindex:0,
+            }))
     }
 
     render(){
@@ -283,7 +306,7 @@ class ActivityDetail extends Component{
                                 <List.Item.Meta
                                     title={item.content}
                                     description={item.operatingrange+' | '+item.startdate+' - '+item.enddate}
-                                    onClick={event=> this.showModal(index)}
+                                    onClick={event=> this.showModal(item,index)}
                                 />
                                 <Modal
                                     visible={this.state.visible}
@@ -308,13 +331,11 @@ class ActivityDetail extends Component{
                                             <Option value="Iteration3"> Iteration 3 </Option>
                                         </Select>
                                     </div>
-                                    <div className="site-calendar-demo-card">
-                                        <Typography.Title level={5}> Start Date</Typography.Title>
-                                        <Calendar fullscreen={false} onChange={value => this.handleStartDate}></Calendar>
-                                    </div>
-                                    <div className="site-calendar-demo-card">
-                                        <Typography.Title level={5}> End Date</Typography.Title>
-                                        <Calendar fullscreen={false} onChange={value => this.handleEndDate}></Calendar>
+                                    <div className="margin20">
+                                        <Typography.Title level={5}> Activity's duration </Typography.Title>
+                                        <Space direction="vertical" size={12}>
+                                            <RangePicker onChange={value => this.handleDate(value)}/>
+                                        </Space>
                                     </div>
                                 </Modal>
                             </List.Item>
