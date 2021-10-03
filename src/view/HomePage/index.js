@@ -6,7 +6,7 @@ import reqwest from 'reqwest';
 import InfiniteScroll from 'react-infinite-scroller';
 
 
-const dataUrl = 'http://127.0.0.1:3000/onboarder';
+const dataUrl = 'http://infsteam5.herokuapp.com/onboarder';
 
 
 class HomePage extends Component {
