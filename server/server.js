@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const app = require('./app');
 
 const DB = `mongodb+srv://team-5:infsteam5@cluster0.zsrux.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
-const port = 3000 || Process.env.PORT;
+
 
 //connect to MongoDB
 mongoose
@@ -18,6 +18,9 @@ mongoose
     });
 
 //create the listener
+
+const port = process.env.PORT || 5000
+
 app.listen(port, () => {
     console.log(`App running on port ${process.env.PORT} `);
 });
