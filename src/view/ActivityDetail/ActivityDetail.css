@@ -1,0 +1,13 @@
+.site-page-header {
+    border: 1px solid rgb(235, 237, 240);
+    background: #e8e8e8;
+}
+.site-calendar-demo-card {
+    width: 300px;
+    border: 1px solid #f0f0f0;
+    border-radius: 2px;
+    margin: 20px 0px 0px 75px;
+}
+.margin20{
+    margin: 20px 0px 0px 0px;
+}
