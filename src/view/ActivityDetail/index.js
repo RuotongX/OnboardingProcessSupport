@@ -6,6 +6,7 @@ import { CloudUploadOutlined } from '@ant-design/icons';
 import reqwest from 'reqwest';
 
 const {TextArea} = Input;
+const { Option } = Select;
 
 class ActivityDetail extends Component{
     constructor(props) {
@@ -16,10 +17,9 @@ class ActivityDetail extends Component{
             urlSuggest:'http://127.0.0.1:3000/suggest',
             data: [],
             suggestList:[],
-            defaultgoal:[],
+            goallist:[],
             loading: true,
             activitylist:[],
-            displaylist:[],
             visiable: false,
             InputActivity: '',
             SelectIteration:'',
@@ -39,6 +39,11 @@ class ActivityDetail extends Component{
                 loading: false,
             });
         })
+        if (this.state.loading !== true) {
+            this.initializeDefaultActivities()
+        } else {
+
+        }
     }
 
     fetchData = callback => {
@@ -86,6 +91,53 @@ class ActivityDetail extends Component{
     showvalue = (value) => {
         // console.log(value)
     }
+    initializeDefaultActivities = () =>{
+        const activitylist = [];
+        for(let i = 0; i < this.state.data.onboarding_date_activity.length; i++){
+            activitylist.push({
+                content: this.state.data.onboarding_date_activity[i].activity,
+                operatingrange: "Onboarding date",
+                startdate: this.state.data.onboarding_date,
+                enddate: this.state.data.onboarding_date,
+            })
+        }
+        for(let i = 0; i < this.state.data.iteration1_activity.length; i++){
+            activitylist.push({
+                content: this.state.data.iteration1_activity[i].activity,
+                operatingrange: "Iteration 1",
+                startdate: this.state.data.iteration1_start_date,
+                enddate: this.state.data.iteration1_end_date,
+            })
+        }
+        for(let i = 0; i < this.state.data.iteration2_activity.length; i++){
+            activitylist.push({
+                content: this.state.data.iteration2_activity[i].activity,
+                operatingrange: "Iteration 2",
+                startdate: this.state.data.iteration2_start_date,
+                enddate: this.state.data.iteration2_end_date,
+            })
+        }
+        for(let i = 0; i < this.state.data.iteration3_activity.length; i++){
+            activitylist.push({
+                content: this.state.data.iteration3_activity[i].activity,
+                operatingrange: "Iteration 3",
+                startdate: this.state.data.iteration3_start_date,
+                enddate: this.state.data.iteration3_end_date,
+            })
+        }
+        const goallist = [];
+        for(let i = 0; i< this.state.suggestList.length;i++){
+            const value = this.state.suggestList[i].goal;
+            goallist.push({
+                value,
+            });
+        }
+        this.setState({
+            activitylist:activitylist,
+            goallist:goallist,
+        })
+
+    }
 
     render(){
 
@@ -95,47 +147,7 @@ class ActivityDetail extends Component{
                 )
         }
         else {
-            const goallist = [];
-            for(let i = 0; i< this.state.suggestList.length;i++){
-                const value = this.state.suggestList[i].goal;
-                goallist.push({
-                    value,
-                });
-            }
-            const activitylist = [];
-            console.log(this.state.data.onboarding_date_activity.length);
-            for(let i = 0; i < this.state.data.onboarding_date_activity.length; i++){
-                activitylist.push({
-                    content: this.state.data.onboarding_date_activity[i].activity,
-                    operatingrange: "Onboarding date",
-                    startdate: this.state.data.onboarding_date,
-                    enddate: this.state.data.onboarding_date,
-                })
-            }
-            for(let i = 0; i < this.state.data.iteration1_activity.length; i++){
-                activitylist.push({
-                    content: this.state.data.iteration1_activity[i].activity,
-                    operatingrange: "Iteration 1",
-                    startdate: this.state.data.iteration1_start_date,
-                    enddate: this.state.data.iteration1_end_date,
-                })
-            }
-            for(let i = 0; i < this.state.data.iteration2_activity.length; i++){
-                activitylist.push({
-                    content: this.state.data.iteration2_activity[i].activity,
-                    operatingrange: "Iteration 2",
-                    startdate: this.state.data.iteration2_start_date,
-                    enddate: this.state.data.iteration2_end_date,
-                })
-            }
-            for(let i = 0; i < this.state.data.iteration3_activity.length; i++){
-                activitylist.push({
-                    content: this.state.data.iteration3_activity[i].activity,
-                    operatingrange: "Iteration 3",
-                    startdate: this.state.data.iteration3_start_date,
-                    enddate: this.state.data.iteration3_end_date,
-                })
-            }
+
             return (
                 <Fragment>
                     <PageHeader
@@ -156,15 +168,15 @@ class ActivityDetail extends Component{
                         placeholder="Please select"
                         defaultValue={this.state.data.goal_list}
                         onChange={value => this.handleChange(value)}
-                        options={goallist}
+                        options={this.state.goallist}
                     />
                     <Divider orientation="left">
                         Activities
                     </Divider>
                     <List
                         itemLayout="horizontal"
-                        dataSource={activitylist}
-                        onClick={event=> this.showvalue(activitylist)}
+                        dataSource={this.state.activitylist}
+                        // onClick={event=> this.showvalue(activitylist)}
                         renderItem={item => (
                             <List.Item>
                                 <List.Item.Meta
@@ -188,11 +200,11 @@ class ActivityDetail extends Component{
                                     <TextArea placeholder={'Make NewZealand Great Again!'} onChange ={event => this.handleInputUp(event)}/>
                                     <div className="margin20">
                                         <Typography.Title level={5}> Activity's operating range </Typography.Title>
-                                        <Select defaultValue="Onboarding_date" style={{ width: 472 }}>
-                                            <Select value="Onboarding_date">Onboarding_date</Select>
-                                            <Select value="Iteration1"> Iteration1 </Select>
-                                            <Select value="Iteration2"> Iteration2 </Select>
-                                            <Select value="Iteration3"> Iteration3 </Select>
+                                        <Select defaultValue="Onboarding_date" >
+                                            <Option value="Onboarding_date">Onboarding_date</Option>
+                                            <Option value="Iteration1"> Iteration 1 </Option>
+                                            <Option value="Iteration2"> Iteration 2 </Option>
+                                            <Option value="Iteration3"> Iteration 3 </Option>
                                         </Select>
                                     </div>
                                     <div className="site-calendar-demo-card">
