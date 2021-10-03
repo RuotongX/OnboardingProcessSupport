@@ -35,7 +35,7 @@ const onboarderSchema = new mongoose.Schema({
         type: String,
         enum: ['No program', 'Not start', 'Doing', 'Complete', 'Withdraw'],
         required: [true, 'A onboarder must have a onboarding program status'],
-        default: 'No onboarding program'
+        default: 'No program'
     },
     team_id: {
         type: String,
@@ -53,36 +53,38 @@ const onboarderSchema = new mongoose.Schema({
         trim: true,
     },
     onboarding_date: {
-        // type: String,
+        type: String,
         // required: [true, 'A onboarder must have an onbording date'],
         // default: new Date().toLocaleDateString(),
-        type: Date,
-        required: [true, 'A onboarder must have an onbording date'],
+        // type: Date,
+        // required: [true, 'A onboarder must have an onbording date'],
     },
     onboarding_date_activity: {
         type: [{
             activity: String,
             source: String,
+            start: String,
+            end: String,
             progress: {
                 type: String,
                 enum: ['Not start', 'Doing', 'Complete', 'Withdraw'],
-                default: 'Not start'
+                default: 'Not start',
             }
         }],
     },
     iteration1_start_date: {
-        // type: String,
+        type: String,
         // required: [true, 'A onboarder must have an onbording date'],
         // default: new Date().toLocaleDateString(),
-        type: Date,
-        required: [true, 'A onboarder must have an onbording date'],
+        // type: Date,
+        // required: [true, 'A onboarder must have an onbording date'],
     },
     iteration1_end_date: {
-        // type: String,
+        type: String,
         // required: [true, 'A onboarder must have an onbording date'],
         // default: new Date().toLocaleDateString(),
-        type: Date,
-        required: [true, 'A onboarder must have an onbording date'],
+        // type: Date,
+        // required: [true, 'A onboarder must have an onbording date'],
     },
     iteration1_feedback: {
         type: String,
@@ -92,6 +94,8 @@ const onboarderSchema = new mongoose.Schema({
         type: [{
             activity: String,
             source: String,
+            start: String,
+            end: String,
             progress: {
                 type: String,
                 enum: ['Not start', 'Doing', 'Complete', 'Withdraw'],
@@ -100,18 +104,18 @@ const onboarderSchema = new mongoose.Schema({
         }],
     },
     iteration2_start_date: {
-        // type: String,
+        type: String,
         // required: [true, 'A onboarder must have an onbording date'],
         // default: new Date().toLocaleDateString(),
-        type: Date,
-        required: [true, 'A onboarder must have an onbording date'],
+        // type: Date,
+        // required: [true, 'A onboarder must have an onbording date'],
     },
     iteration2_end_date: {
         // type: String,
         // required: [true, 'A onboarder must have an onbording date'],
         // default: new Date().toLocaleDateString(),
-        type: Date,
-        required: [true, 'A onboarder must have an onbording date'],
+        // type: Date,
+        // required: [true, 'A onboarder must have an onbording date'],
     },
     iteration2_feedback: {
         type: String,
@@ -121,6 +125,8 @@ const onboarderSchema = new mongoose.Schema({
         type: [{
             activity: String,
             source: String,
+            start: String,
+            end: String,
             progress: {
                 type: String,
                 enum: ['Not start', 'Doing', 'Complete', 'Withdraw'],
@@ -129,18 +135,18 @@ const onboarderSchema = new mongoose.Schema({
         }],
     },
     iteration3_start_date: {
-        // type: String,
+        type: String,
         // required: [true, 'A onboarder must have an onbording date'],
         // default: new Date().toLocaleDateString(),
-        type: Date,
-        required: [true, 'A onboarder must have an onbording date'],
+        // type: Date,
+        // required: [true, 'A onboarder must have an onbording date'],
     },
     iteration3_end_date: {
-        // type: String,
+        type: String,
         // required: [true, 'A onboarder must have an onbording date'],
         // default: new Date().toLocaleDateString(),
-        type: Date,
-        required: [true, 'A onboarder must have an onbording date'],
+        // type: Date,
+        // required: [true, 'A onboarder must have an onbording date'],
     },
     iteration3_feedback: {
         type: String,
@@ -148,6 +154,8 @@ const onboarderSchema = new mongoose.Schema({
     },
     iteration3_activity: {
         type: [{
+            start: String,
+            end: String,
             activity: String,
             source: String,
             progress: {
