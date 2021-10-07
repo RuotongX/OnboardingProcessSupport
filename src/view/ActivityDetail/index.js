@@ -31,7 +31,7 @@ class ActivityDetail extends Component{
             selectenddate:'',
             activityindex:0,
         }
-        this.state.url = 'http://infsteam5.herokuapp.com/onboarder/' + obrid;
+        this.state.url = 'https://infsteam5.herokuapp.com/onboarder/' + obrid;
     }
     componentDidMount() {
         this.fetchData(res => {
