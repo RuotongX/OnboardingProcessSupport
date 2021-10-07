@@ -14,8 +14,8 @@ class ActivityDetail extends Component{
         super(props);
         const obrid = this.props.location.state;
         this.state = {
-            url: 'http://infsteam5.herokuapp.com/onboarder',
-            urlSuggest:'http://infsteam5.herokuapp.com/suggest',
+            url: 'https://infsteam5.herokuapp.com/onboarder',
+            urlSuggest:'https://infsteam5.herokuapp.com/suggest',
             data: [],
             suggestList:[],
             goallist:[],
