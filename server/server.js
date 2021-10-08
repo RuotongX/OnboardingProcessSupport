@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const app = require('./app');
+const app = require('./server');
 
 const DB = `mongodb+srv://team-5:infsteam5@cluster0.zsrux.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 
