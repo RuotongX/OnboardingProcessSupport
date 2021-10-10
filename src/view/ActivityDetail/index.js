@@ -36,6 +36,22 @@ class ActivityDetail extends Component{
     }
     componentDidMount() {
         this.fetchData(res => {
+            this.fetchDataSuggest(res => {
+                const slist = res.data.suggests;
+                const goallist = this.state.goallist;
+                for(let i = 0; i< slist.length;i++){
+                    const value = slist[i].goal;
+
+                    goallist.push({
+                        value,
+                    });
+                }
+                this.setState({
+                    suggestList: slist,
+                    goallist:goallist,
+                    loading: false,
+                });
+            })
             const data = res.data.onboarder;
             const activitylist = [];
             for(let i = 0; i < data.onboarding_date_activity.length; i++){
@@ -77,9 +93,14 @@ class ActivityDetail extends Component{
             const goallist = this.state.goallist;
             for(let i = 0; i< data.goal_list.length;i++){
                 const value = data.goal_list[i];
-                goallist.push({
-                    value,
-                });
+                console.log(goallist)
+                if(goallist.includes(value)){
+
+                } else {
+                    goallist.push({
+                        value,
+                    });
+                }
             }
 
             this.setState({
@@ -89,23 +110,7 @@ class ActivityDetail extends Component{
                 loading1:false,
             });
         });
-        this.fetchDataSuggest(res => {
-            const slist = res.data.suggests;
-            const goallist = this.state.goallist;
-            for(let i = 0; i< slist.length;i++){
-                const value = slist[i].goal;
-                console.log(goallist)
-                    goallist.push({
-                        value,
-                    });
-            }
 
-            this.setState({
-                suggestList: slist,
-                goallist:goallist,
-                loading: false,
-            });
-        })
 
 
     }
@@ -383,7 +388,7 @@ class ActivityDetail extends Component{
                         onChange={this.handleGoalChange()}
                         onSelect = {value => this.addGoal(value)}
                         onDeselect = {value => this.deleteGoal(value)}
-                        options={gl}
+                        options={this.state.goallist}
                     />
                     <Divider orientation="left">
                         Activities
