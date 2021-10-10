@@ -34,24 +34,8 @@ class ActivityDetail extends Component{
         }
         this.state.url = 'https://infsteam5.herokuapp.com/onboarder/' + obrid;
     }
-    componentDidMount() {
+    async componentDidMount() {
         this.fetchData(res => {
-            this.fetchDataSuggest(res => {
-                const slist = res.data.suggests;
-                const goallist = this.state.goallist;
-                for(let i = 0; i< slist.length;i++){
-                    const value = slist[i].goal;
-
-                    goallist.push({
-                        value,
-                    });
-                }
-                this.setState({
-                    suggestList: slist,
-                    goallist:goallist,
-                    loading: false,
-                });
-            })
             const data = res.data.onboarder;
             const activitylist = [];
             for(let i = 0; i < data.onboarding_date_activity.length; i++){
@@ -91,18 +75,30 @@ class ActivityDetail extends Component{
                 })
             }
             const goallist = this.state.goallist;
+            const temp = [
+                "Understand the project domain knowledge and terminology",
+                "Understanding team norms",
+                "Understanding company culture",
+                "Knowing the responsibilities, expertise and authority of other team members",
+                "Understand other’s expectations of your own role’s responsibilities" ,
+                "Understand what work to do and when",
+                "Understand the project structure and aims and the implications",
+                "Understand how to code and test to the team’s expectations",
+                "Understand and meet the team’s standards of work quality",
+                "Understand and show the agile mind set",
+                "Know how to use artefacts, tools, technology and techniques that are part of the team’s development process",
+            ];
+
             for(let i = 0; i< data.goal_list.length;i++){
                 const value = data.goal_list[i];
-                console.log(goallist)
-                if(goallist.includes(value)){
-
+                if(temp.includes(value)){
+                    console.log('1');
                 } else {
                     goallist.push({
                         value,
                     });
                 }
             }
-
             this.setState({
                 data: data,
                 activitylist: activitylist,
@@ -110,7 +106,23 @@ class ActivityDetail extends Component{
                 loading1:false,
             });
         });
+        this.fetchDataSuggest(res => {
+            const slist = res.data.suggests;
+            const goallist = this.state.goallist;
+            for(let i = 0; i< slist.length;i++){
 
+                const value = slist[i].goal;
+                    goallist.push({
+                        value,
+                    });
+            }
+
+            this.setState({
+                suggestList: slist,
+                goallist:goallist,
+                loading: false,
+            });
+        })
 
 
     }
