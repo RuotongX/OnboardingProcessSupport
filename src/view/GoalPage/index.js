@@ -21,6 +21,7 @@ class GoalPage extends Component{
             visibleAdd:false,
             ginput:'',
             ginx:0,
+            obrid: obrid,
         }
         this.state.url = 'https://infsteam5.herokuapp.com/onboarder/' + obrid;
     }
@@ -140,6 +141,18 @@ class GoalPage extends Component{
             // suggestList: sl,
         })
     }
+    handleUpload = callback => {
+        delete this.state.data._id;
+        let data = JSON.stringify(this.state.data);
+        console.log(data);
+        fetch(this.state.url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: data,
+        })
+    }
     render(){
         // console.log(this.state.data);
         return(
@@ -149,7 +162,7 @@ class GoalPage extends Component{
                     onBack={() => window.history.back()}
                     title="Goal"
                     extra={
-                        <Button shape="round" icon={<CloudUploadOutlined />} size="large"/>
+                        <Button shape="round" icon={<CloudUploadOutlined />} size="large" onClick={this.handleUpload}/>
                     }
                     // subTitle="This is a subtitle"
                 />

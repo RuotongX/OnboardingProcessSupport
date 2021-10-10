@@ -30,6 +30,7 @@ class ActivityDetail extends Component{
             selectstartdate:'',
             selectenddate:'',
             activityindex:0,
+            obrid: obrid,
         }
         this.state.url = 'https://infsteam5.herokuapp.com/onboarder/' + obrid;
     }
@@ -40,7 +41,7 @@ class ActivityDetail extends Component{
             for(let i = 0; i < data.onboarding_date_activity.length; i++){
                 activitylist.push({
                     content: data.onboarding_date_activity[i].activity,
-                    operatingrange: "Onboarding date",
+                    operatingrange: "Onboarding_date",
                     startdate: data.onboarding_date,
                     enddate: data.onboarding_date,
                     counter:0,
@@ -49,27 +50,27 @@ class ActivityDetail extends Component{
             for(let i = 0; i < data.iteration1_activity.length; i++){
                 activitylist.push({
                     content: data.iteration1_activity[i].activity,
-                    operatingrange: "Iteration 1",
-                    startdate: data.iteration1_start_date,
-                    enddate: data.iteration1_end_date,
+                    operatingrange: "Iteration1",
+                    startdate: data.iteration1_activity[i].start,
+                    enddate: data.iteration1_activity[i].end,
                     counter:0,
                 })
             }
             for(let i = 0; i < data.iteration2_activity.length; i++){
                 activitylist.push({
                     content: data.iteration2_activity[i].activity,
-                    operatingrange: "Iteration 2",
-                    startdate: data.iteration2_start_date,
-                    enddate: data.iteration2_end_date,
+                    operatingrange: "Iteration2",
+                    startdate: data.iteration2_activity[i].start,
+                    enddate: data.iteration2_activity[i].end,
                     counter:0,
                 })
             }
             for(let i = 0; i < data.iteration3_activity.length; i++){
                 activitylist.push({
                     content: data.iteration3_activity[i].activity,
-                    operatingrange: "Iteration 3",
-                    startdate: data.iteration3_start_date,
-                    enddate: data.iteration3_end_date,
+                    operatingrange: "Iteration3",
+                    startdate: data.iteration3_activity[i].start,
+                    enddate: data.iteration3_activity[i].end,
                     counter:0,
                 })
             }
@@ -80,6 +81,7 @@ class ActivityDetail extends Component{
                     value,
                 });
             }
+
             this.setState({
                 data: data,
                 activitylist: activitylist,
@@ -92,16 +94,19 @@ class ActivityDetail extends Component{
             const goallist = this.state.goallist;
             for(let i = 0; i< slist.length;i++){
                 const value = slist[i].goal;
-                goallist.push({
-                    value,
-                });
+                console.log(goallist)
+                    goallist.push({
+                        value,
+                    });
             }
+
             this.setState({
                 suggestList: slist,
                 goallist:goallist,
                 loading: false,
             });
         })
+
 
     }
 
@@ -148,6 +153,11 @@ class ActivityDetail extends Component{
                 })
             }
         }
+        let gl = this.state.data;
+        gl.goal_list.push(value);
+        this.setState({
+            data:gl,
+        })
     }
 
     deleteGoal = (value) => {
@@ -171,11 +181,20 @@ class ActivityDetail extends Component{
                 })
             }
         }
+        let gl = this.state.data;
+        for(let j = gl.goal_list.length-1;j>-1;j--){
+            if(gl.goal_list[j]===value){
+                gl.goal_list.splice(j,1);
+            }
+        }
+        this.setState({
+            data:gl,
+        })
     }
 
     handleGoalChange = () => {
-        let newal = this.state.activitylist;
 
+        let newal = this.state.activitylist;
             for (let i = newal.length - 1; i > -1; i--) {
                 for (let j = i - 1; j > -1; j--) {
 
@@ -261,6 +280,63 @@ class ActivityDetail extends Component{
                 activityindex:0,
             }))
     }
+    handleUpload = () => {
+        delete this.state.data._id;
+        let renew = this.state.data;
+        let al = this.state.activitylist;
+
+        for(let i = 0; i< al.length;i++){
+            if(al[i].operatingrange === "Onboarding_date"){
+
+                renew.onboarding_date_activity.push({
+                    start: al[i].startdate,
+                    end: al[i].enddate,
+                    activity: al[i].content,
+                    source:"locker"
+                })
+            }
+            if(al[i].operatingrange === "Iteration1"){
+
+                renew.iteration1_activity.push({
+                    start: al[i].startdate,
+                    end: al[i].enddate,
+                    activity: al[i].content,
+                    source:"locker"
+                })
+            }
+            if(al[i].operatingrange === "Iteration2"){
+
+                renew.iteration2_activity.push({
+                    start: al[i].startdate,
+                    end: al[i].enddate,
+                    activity: al[i].content,
+                    source:"locker"
+                })
+            }
+            if(al[i].operatingrange === "Iteration3"){
+                renew.iteration3_activity.push({
+                    start: al[i].startdate,
+                    end: al[i].enddate,
+                    activity: al[i].content,
+                    source:"locker"
+                })
+            }
+        }
+
+
+        let data = JSON.stringify(renew);
+
+        fetch(this.state.url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: data,
+        })
+        this.setState({
+            InputActivity: '',
+        })
+    }
 
     render(){
 
@@ -269,7 +345,22 @@ class ActivityDetail extends Component{
                     <Spin/>
                 )
         }
+
         else {
+            // const gl = this.state.goallist;
+            // for (let i = gl.length - 1; i > -1; i--) {
+            //     for (let j = i - 1; j > -1; j--) {
+            //
+            //         try {
+            //             if (gl[i]=== gl[j]) {
+            //
+            //                 gl.splice(j, 1);
+            //             }
+            //         } catch(e){
+            //
+            //         }
+            //     }
+            // }
             return (
                 <Fragment>
                     <PageHeader
@@ -277,7 +368,7 @@ class ActivityDetail extends Component{
                         onBack={() => window.history.back()}
                         title="Activity"
                         extra={
-                            <Button shape="round" icon={<CloudUploadOutlined/>} size="large"/>
+                            <Button shape="round" icon={<CloudUploadOutlined/>} size="large" onClick={this.handleUpload}/>
                         }
                         // subTitle="This is a subtitle"
                     />
@@ -292,7 +383,7 @@ class ActivityDetail extends Component{
                         onChange={this.handleGoalChange()}
                         onSelect = {value => this.addGoal(value)}
                         onDeselect = {value => this.deleteGoal(value)}
-                        options={this.state.goallist}
+                        options={gl}
                     />
                     <Divider orientation="left">
                         Activities
