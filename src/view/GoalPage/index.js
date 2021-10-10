@@ -28,6 +28,7 @@ class GoalPage extends Component{
     componentDidMount() {
         this.fetchData(res => {
             this.setState({
+                data1:res.data.onboarder,
                 data: res.data.onboarder.goal_list,
                 loading: false,
                 visible: false,
@@ -142,8 +143,10 @@ class GoalPage extends Component{
         })
     }
     handleUpload = callback => {
-        delete this.state.data._id;
-        let data = JSON.stringify(this.state.data);
+        delete this.state.data1._id;
+        let temp = this.state.data1;
+        temp.goal_list=this.state.data;
+        let data = JSON.stringify(temp);
         console.log(data);
         fetch(this.state.url, {
             method: 'PATCH',
