@@ -2,7 +2,7 @@ import {PageHeader, List, Button, Space, Spin, Modal, Input, Divider, Radio, Typ
 import './OnboarderProfile.css';
 import 'antd/dist/antd.css';
 import React, {Component,Fragment} from 'react';
-import { ManOutlined,CloudUploadOutlined } from '@ant-design/icons';
+import { CloudUploadOutlined } from '@ant-design/icons';
 import reqwest from 'reqwest';
 
 const {TextArea} = Input;
@@ -18,8 +18,9 @@ class OnboarderProfile extends Component{
             loading: true,
             visible:false,
             ginput:'',
-            skillLevel:0,
+            skillLevel:1,
             ginx:0,
+            obrid: obrid,
         }
         this.state.url='https://infsteam5.herokuapp.com/onboarder/'+obrid;
     }
@@ -109,8 +110,21 @@ class OnboarderProfile extends Component{
         }
     }
     onLevelChange = (e)=> {
+        let value = Number(e.target.value);
         this.setState({
-            skillLevel: e.target.value,
+            skillLevel: value,
+        })
+    }
+    handleUpload = () => {
+        delete this.state.data1._id;
+        let data = JSON.stringify(this.state.data1);
+        console.log(data);
+        fetch(this.state.url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: data,
         })
     }
 
@@ -123,7 +137,7 @@ class OnboarderProfile extends Component{
                     onBack={() => window.history.back()}
                     title="Profile"
                     extra={
-                        <Button shape="round" icon={<CloudUploadOutlined/>} size="large"/>
+                        <Button shape="round" icon={<CloudUploadOutlined/>} size="large" onClick={this.handleUpload}/>
                     }
                 />
                 <div className="center" >
@@ -182,7 +196,7 @@ class OnboarderProfile extends Component{
                                 <TextArea placeholder={'Make NewZealand Great Again!'} onChange ={event => this.handleInputUp(event)}/>
                                 <div className="margin20">
                                     <Typography.Title level={5}> Please select skill level </Typography.Title>
-                                    <Radio.Group onChange={this.onLevelChange} defaultValue="5">
+                                    <Radio.Group onChange={this.onLevelChange} defaultValue="1">
                                         <Radio.Button value="1">1</Radio.Button>
                                         <Radio.Button value="2">2</Radio.Button>
                                         <Radio.Button value="3">3</Radio.Button>
@@ -202,10 +216,10 @@ class OnboarderProfile extends Component{
                 </List>
                 <div className = "Start">
                     <Space size={"middle"} wrap align={'center'}>
-                        <Button type="primary" size="large" className="gb" shape="round" icon = {<ManOutlined />} onClick={()=> this.props.history.push({pathname:"./Profile/Goal",state:this.state.data1._id})}>
+                        <Button type="primary" size="large" className="gb" shape="round"  onClick={()=> this.props.history.push({pathname:"./Profile/Goal",state:this.state.data1._id})}>
                             Modify Goals
                         </Button>
-                        <Button type="primary" size="large" className="ab" shape="round" icon = {<ManOutlined />} onClick={()=> this.props.history.push({pathname:"./Profile/Activity",state:this.state.data1._id})}>
+                        <Button type="primary" size="large" className="ab" shape="round"  onClick={()=> this.props.history.push({pathname:"./Profile/Activity",state:this.state.data1._id})}>
                             Modify Activities
                         </Button>
                     </Space>
