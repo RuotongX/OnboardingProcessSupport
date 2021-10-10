@@ -3,7 +3,7 @@ import React,{Component} from "react";
 import './apitest.css';
 
 
-const dataUrl = 'http://127.0.0.1:3000/onboarder';
+const dataUrl = 'https://infsteam5.herokuapp.com/onboarder';
 
 
 class ApiTest extends Component {
