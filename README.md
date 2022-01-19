@@ -1,4 +1,4 @@
-This is an assignment from AUT INFS809 Software Development Method. It provide an user interface for company to help onboarders have an onboarding progress. The project is based on MERN structure (Mongo DB, Express, React, Node). Backend has been serverd on Heroku either, the link is https://infsteam5.herokuapp.com.
+This is an assignment from AUT INFS809 Software Development Method. It provide an user interface for company to help onboarders have an onboarding progress. The project is based on MERN structure (Mongo DB, Express, React, Node). Backend (which is Mongo DB) has been serverd on Heroku either, the link is https://infsteam5.herokuapp.com.
 
 ![ob1](https://user-images.githubusercontent.com/37313808/150084733-96babd47-a836-45e8-b44f-4b988a09e262.JPG)
 ![ob2](https://user-images.githubusercontent.com/37313808/150084735-7cd23dba-d8ea-4ac0-86c3-cc3d22998f00.JPG)
